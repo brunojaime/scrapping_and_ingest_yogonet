@@ -2,18 +2,15 @@ import os
 import pandas as pd
 from google.cloud import bigquery
 from google.api_core.exceptions import NotFound
-from dotenv import load_dotenv
 
-load_dotenv() 
 
 # Leer variables desde entorno (.env o Docker)
 PROJECT_ID = os.getenv("PROJECT_ID")
 DATASET_ID = os.getenv("DATASET_ID")
 TABLE_ID = os.getenv("TABLE_ID")
-CREDENTIALS_PATH = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
 
-# Setear credenciales explícitamente
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = CREDENTIALS_PATH
+
+
 
 def ensure_dataset(client: bigquery.Client):
     dataset_ref = client.dataset(DATASET_ID)
@@ -74,21 +71,6 @@ def upload_to_bigquery(df: pd.DataFrame):
 
 
 
-def run_get_query(query: str) -> pd.DataFrame:
-    """
-    Ejecuta una consulta SQL en BigQuery y devuelve un DataFrame con los resultados.
-
-    Args:
-        query (str): Consulta SQL válida.
-
-    Returns:
-        pd.DataFrame: Resultados de la consulta.
-    """
-    client = bigquery.Client()
-    query_job = client.query(query)
-    results = query_job.result()
-    df = results.to_dataframe()
-    return df
 
 
 def test_connection():

@@ -25,7 +25,7 @@ def scrape_yogonet(url):
     driver.get(url)
     
     
-    max_urls = False
+    max_urls =False
     links = WebDriverWait(driver, 10).until(
     EC.presence_of_all_elements_located((By.CSS_SELECTOR, "div.item_menu a"))
     )
