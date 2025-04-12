@@ -5,7 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-def scrape_yogonet(chromedriver_path="/usr/local/bin/chromedriver"):
+def scrape_yogonet(url,chromedriver_path="/usr/local/bin/chromedriver"):
     # Configuramos el servicio y las opciones de Chrome
     service = Service(chromedriver_path)
     options = webdriver.ChromeOptions()
@@ -14,7 +14,7 @@ def scrape_yogonet(chromedriver_path="/usr/local/bin/chromedriver"):
     #options.add_argument('--window-size=1920x1080')
 
     driver = webdriver.Chrome(service=service, options=options)
-    driver.get("https://www.yogonet.com/international/")
+    driver.get(url)
    
     
 
@@ -43,6 +43,6 @@ def scrape_yogonet(chromedriver_path="/usr/local/bin/chromedriver"):
 
     finally:
         driver.quit()
-    element = {"Title":title,"Kicker":kicker,"Image_URL":image_url}
+    element = {"title":title,"kicker":kicker,"image_url":image_url,"link":url}
     return element
 
