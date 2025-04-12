@@ -2,7 +2,8 @@ import pandas as pd
 
 
 def data_processing(data):   
-    df = pd.DataFrame([data])
+    df = pd.DataFrame(data)
+    print(df)
     df['title_word_count'] = df['title'].apply(lambda x: len(x.split()))
 
     df['title_char_count'] = df['title'].apply(len)
