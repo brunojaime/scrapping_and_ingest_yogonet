@@ -16,33 +16,33 @@ def scrape_yogonet(chromedriver_path="/usr/local/bin/chromedriver"):
     driver = webdriver.Chrome(service=service, options=options)
     driver.get("https://www.yogonet.com/international/")
    
-    elements = []
+    
 
     try:
        
         title = WebDriverWait(driver, 5).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, "div.slot.slot_1.noticia.cargada div.volanta"))
         ).text.strip()
-        elements.append({"Title":title})
-        print("Title:",title)  
+        
+       # print("Title:",title)  
 
 
         kicker = WebDriverWait(driver, 5).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "div.slot.slot_1.noticia.cargada h2.titulo.fuente_roboto_slab > a"))
     ).text.strip()
         
-        elements.append({"Kicker":kicker})
-        print("Kicker:",kicker)
+      
+        #print("Kicker:",kicker)
 
         image_url = WebDriverWait(driver, 5).until(
         EC.presence_of_element_located((By.CSS_SELECTOR, "div.slot.slot_1.noticia.cargada div.imagen img"))
     ).get_attribute("src")
         
-        elements.append({"Image URL":image_url})
-        print("Image URL:",image_url)
+
+       # print("Image URL:",image_url)
 
     finally:
         driver.quit()
-
-    return elements
+    element = {"Title":title,"Kicker":kicker,"Image_URL":image_url}
+    return element
 
