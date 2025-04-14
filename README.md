@@ -22,14 +22,15 @@ Este proyecto ejecuta un proceso automatizado de scraping en el portal [Yogonet]
   - Usar Cloud Run y BigQuery
 - Habilitar las siguientes APIs:
 
-En bash:
+### bash:
 gcloud services enable artifactregistry.googleapis.com run.googleapis.com bigquery.googleapis.com
 
 Instalación y configuración
 1. Clonar el repositorio
-git clone https://github.com/<usuario>/yogonet-scraper.git
+git clone https://github.com/brunojaime/scrapping_and_ingest_yogonet
 cd yogonet-scraper
-2. Crear archivo .env
+
+3. Crear archivo .env
 Crea un archivo .env en la raíz del proyecto con el siguiente contenido:
 PROJECT_ID=<tu-id-de-proyecto>
 DATASET_ID=news_data
