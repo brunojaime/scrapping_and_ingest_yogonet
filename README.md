@@ -1,58 +1,76 @@
 
-# Yogonet Web Scraper – Cloud Run Job
+# News Web Scraper – Cloud Run Job
 
-Este proyecto ejecuta un proceso automatizado de scraping en el portal [Yogonet](https://www.yogonet.com/international/), procesa los datos y los carga en BigQuery. Está completamente Dockerizado y desplegado como un **Cloud Run Job**.
-
----
-
-## ¿Qué hace?
-
-1. Usa Selenium para scrapear noticias desde Yogonet.
-2. Procesa los datos con Pandas (conteo de palabras, caracteres, etc.).
-3. Inserta los resultados en una tabla de BigQuery.
-4. Corre como un Job en Cloud Run con una imagen Docker personalizada.
+This project runs an automated scraping process on a news website, processes the data using Pandas, and loads it into BigQuery. It's fully Dockerized and deployed as a **Cloud Run Job**.
 
 ---
 
-## Requisitos previos
+## What does it do?
 
-- Tener configurado Google Cloud CLI (`gcloud`) y estar autenticado.
-- Permisos para:
-  - Crear repos en Artifact Registry
-  - Usar Cloud Run y BigQuery
-- Habilitar las siguientes APIs:
+1. Uses Selenium to scrape news articles from a specific website.
+2. Processes the data using Pandas (e.g., word count, character count, etc.).
+3. Uploads the results into a BigQuery table.
+4. Runs as a Cloud Run Job using a custom Docker image.
 
-En bash:
+---
+
+## Prerequisites
+
+- Google Cloud CLI (`gcloud`) installed and authenticated
+- Permissions to:
+  - Create and push to Artifact Registry
+  - Use Cloud Run and BigQuery
+- The following APIs enabled:
+
+#### bash:
 gcloud services enable artifactregistry.googleapis.com run.googleapis.com bigquery.googleapis.com
 
-Instalación y configuración
-1. Clonar el repositorio
-git clone https://github.com/<usuario>/yogonet-scraper.git
+
+## Installation and Setup
+
+### 1. Clone the repository
+
+#### bash:
+git clone https://github.com/brunojaime/scrapping_and_ingest_yogonet
 cd yogonet-scraper
-2. Crear archivo .env
-Crea un archivo .env en la raíz del proyecto con el siguiente contenido:
-PROJECT_ID=<tu-id-de-proyecto>
+
+
+
+### 3. Create the `.env` file
+Create a `.env` file at the root of the project with the following content:
+PROJECT_ID=<your-project-id>
+
+This following variables can be customized:
+
 DATASET_ID=news_data
 TABLE_ID=yogonet_articles
 REGION=us-central1
 REPO_NAME=yogonet-repo
 SERVICE_NAME=yogonet-scraper
-Asegurate de que PROJECT_ID coincida con el proyecto activo que devuelve este comando:
+
+
+Make sure that `PROJECT_ID` matches the currently active project. You can verify it with this command:
+
+#### bash:
 gcloud config get-value project
-Despliegue
-Ejecutá el siguiente script para construir, subir y correr todo automáticamente:
+
+## Deployment
+Run the following script to automatically build, push, and run everything:
 ./deploy.sh
 
-Este script:
-- Verifica tu entorno (gcloud, docker, variables)
-- Construye y sube la imagen Docker
-- Crea o actualiza el Cloud Run Job
-- Ejecuta el Job con los valores del archivo .env
-Ver resultados
-Consultar ejecuciones del Job
+### This script:
 
+Validates your environment (gcloud, docker, variables)
+Builds and uploads the Docker image
+Creates or updates the Cloud Run Job
+Executes the Job using the values from the .env file
+
+## View Job Executions
+To see the execution history of the Job:
+
+(See the region selected, in this case is with us-central1)
 gcloud beta run jobs executions list --region=us-central1 --job=yogonet-scraper
-También podés verlos en la consola web de Google Cloud.
+You can also view it in the Google Cloud Console web UI.
 
-Ver datos en BigQuery
-Ingresá al proyecto en BigQuery y consultá el dataset y tabla definidos en tu .env.
+ ## View Data in BigQuery
+Go to your project in BigQuery and look for the dataset and table defined in your .env file.
