@@ -64,7 +64,7 @@ def get_element(driver,url) :
              print(f"Error al procesar {url}: {e}")
         return this_elements
 
-def es_categoria_valida(base,link):
+def is_valid_category(base,link):
     
     if not link.startswith(base):
         return False
