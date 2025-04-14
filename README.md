@@ -74,3 +74,26 @@ You can also view it in the Google Cloud Console web UI.
 
  ## View Data in BigQuery
 Go to your project in BigQuery and look for the dataset and table defined in your .env file.
+
+
+## Advanced: AI-Assisted Scraper using LangGraph
+This project also includes an AI-powered scraping module implemented using LangGraph and LangChain.
+
+This feature is designed to dynamically extract structured fields like title, kicker, image_url, and link from raw HTML. It uses a combination of:
+
+Tool functions built with BeautifulSoup (e.g., extract_title, extract_image)
+
+A LangGraph agent that invokes the appropriate tools
+
+State tracking using MessagesState
+
+The module does not rely on fixed selectors and instead uses semantic heuristics to interpret HTML blocks contextually.
+
+You can find this implementation in the ai_scraper_langgraph.ipynb notebook, which demonstrates:
+
+The full code for the LangGraph pipeline
+
+How each tool works individually
+
+How the HTML is processed and passed to the agent
+
